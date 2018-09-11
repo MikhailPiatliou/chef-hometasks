@@ -1,0 +1,50 @@
+Starting Chef Client, version 14.4.56[0m
+resolving cookbooks for run list: ["nginx"][0m
+Synchronizing Cookbooks:[0m
+  - nginx (0.1.0)[0m
+Installing Cookbook Gems:[0m
+Compiling Cookbooks...[0m
+Converging 6 resources[0m
+Recipe: nginx::default[0m
+  * remote_file[/tmp/nginx-1.12.1-1.el7.ngx.x86_64.rpm] action create_if_missing
+    [32m- create new file /tmp/nginx-1.12.1-1.el7.ngx.x86_64.rpm[0m
+    [32m- update content in file /tmp/nginx-1.12.1-1.el7.ngx.x86_64.rpm from none to 70b474[0m
+    [37m(new content is binary, diff output suppressed)[0m
+[0m  * yum_package[nginx-1.12.1-1.el7.ngx.x86_64.rpm] action install
+    [32m- install version 1:1.12.1-1.el7.ngx.x86_64 of package nginx-1.12.1-1.el7.ngx.x86_64.rpm[0m
+[0m  * service[nginx] action enable
+    [32m- enable service service[nginx][0m
+[0m  * service[nginx] action start
+    [32m- start service service[nginx][0m
+[0m  * directory[/var/www/html] action create
+    [32m- create new directory /var/www/html[0m
+[0m  * template[/var/www/html/index.html] action create
+    [32m- create new file /var/www/html/index.html[0m
+    [32m- update content in file /var/www/html/index.html from none to a3c23f[0m
+    [37m--- /var/www/html/index.html	2018-09-11 10:24:55.528756271 +0100[0m
+    [37m+++ /var/www/html/.chef-index20180911-4326-skzgg5.html	2018-09-11 10:24:55.528756271 +0100[0m
+    [37m@@ -1 +1,3 @@[0m
+    [37m+<h1></h1>[0m
+    [37m+[0m
+    [32m- change mode from '' to '0644'[0m
+[0m  * template[/etc/nginx/conf.d/jboss.conf] action create
+    [32m- create new file /etc/nginx/conf.d/jboss.conf[0m
+    [32m- update content in file /etc/nginx/conf.d/jboss.conf from none to 287ee8[0m
+    [37m--- /etc/nginx/conf.d/jboss.conf	2018-09-11 10:24:55.538756259 +0100[0m
+    [37m+++ /etc/nginx/conf.d/.chef-jboss20180911-4326-1xo2mlj.conf	2018-09-11 10:24:55.538756259 +0100[0m
+    [37m@@ -1 +1,10 @@[0m
+    [37m+server {[0m
+    [37m+  listen 80;[0m
+    [37m+  server_name nginx;[0m
+    [37m+  root jboss;[0m
+    [37m+  location / {[0m
+    [37m+    proxy_pass http://192.168.1.3:8080/sample/;[0m
+    [37m+  }[0m
+    [37m+}[0m
+    [37m+[0m
+[0m  * service[nginx] action reload
+    [32m- reload service service[nginx][0m
+[0m[0m
+Running handlers:[0m
+Running handlers complete
+[0mChef Client finished, 8/8 resources updated in 16 seconds[0m

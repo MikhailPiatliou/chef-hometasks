@@ -1,0 +1,68 @@
+Starting Chef Client, version 14.4.56[0m
+resolving cookbooks for run list: ["jboss"][0m
+Synchronizing Cookbooks:[0m
+  - jboss (0.1.0)[0m
+Installing Cookbook Gems:[0m
+Compiling Cookbooks...[0m
+Converging 9 resources[0m
+Recipe: jboss::default[0m
+  * yum_package[java-1.8.0-openjdk] action install
+    [32m- install version 1:1.8.0.181-3.b13.el7_5.x86_64 of package java-1.8.0-openjdk[0m
+[0m  * linux_user[jboss] action create
+    [32m- create user jboss[0m
+[0m  * group[jboss] action create (up to date)
+  * yum_package[unzip] action install
+    [32m- install version 0:6.0-19.el7.x86_64 of package unzip[0m
+[0m  * remote_file[/opt/jboss.zip] action create
+    [32m- create new file /opt/jboss.zip[0m
+    [32m- update content in file /opt/jboss.zip from none to be93bc[0m
+    [37m(file sizes exceed 10000000 bytes, diff output suppressed)[0m
+    [32m- change owner from '' to 'jboss'[0m
+    [32m- change group from '' to 'jboss'[0m
+[0m  * bash[unzip] action run
+    [32m- execute "bash"  "/tmp/chef-script20180911-4332-9rgcc0"[0m
+[0m  * systemd_unit[jboss.service] action create
+  Recipe: <Dynamically Defined Resource>[0m
+    * file[/etc/systemd/system/jboss.service] action create
+      [32m- create new file /etc/systemd/system/jboss.service[0m
+      [32m- update content in file /etc/systemd/system/jboss.service from none to 327c3a[0m
+      [37m--- /etc/systemd/system/jboss.service	2018-09-11 10:22:24.623446824 +0100[0m
+      [37m+++ /etc/systemd/system/.chef-jboss20180911-4332-tybvl4.service	2018-09-11 10:22:24.467447020 +0100[0m
+      [37m@@ -1 +1,12 @@[0m
+      [37m+  [Unit][0m
+      [37m+  Description=Jboss App Server[0m
+      [37m+  After=network.target[0m
+      [37m+  [Service][0m
+      [37m+  Type=forking[0m
+      [37m+  User=jboss[0m
+      [37m+  Group=jboss[0m
+      [37m+  ExecStart=/bin/bash -c 'nohup /opt/jboss/bin/run.sh -b 192.168.1.3 &'[0m
+      [37m+  ExecStop=/bin/bash -c 'bin/shutdown.sh -s 192.168.1.3 -u admin -p admin'[0m
+      [37m+  [Install][0m
+      [37m+  WantedBy=multi-user.target[0m
+      [32m- change mode from '' to '0644'[0m
+      [32m- change owner from '' to 'root'[0m
+      [32m- change group from '' to 'root'[0m
+[0m    [32m- creating unit: jboss.service[0m
+[0mRecipe: jboss::default[0m
+  * systemd_unit[jboss.service] action enable
+    [32m- enabling unit: jboss.service[0m
+[0m  * systemd_unit[jboss.service] action start
+    [32m- starting unit: jboss.service[0m
+[0m  * remote_file[/opt/jboss/server/default/deploy/sample.war] action create_if_missing
+    [32m - Progress: 100%[0m
+    [32m- create new file /opt/jboss/server/default/deploy/sample.war[0m
+    [32m- update content in file /opt/jboss/server/default/deploy/sample.war from none to 89b33c[0m
+    [37m(new content is binary, diff output suppressed)[0m
+    [32m- change owner from '' to 'jboss'[0m
+    [32m- change group from '' to 'jboss'[0m
+[0m  * http_request[check] action get[2018-09-11T10:22:25+01:00] ERROR: Connection refused connecting to http://192.168.1.3:8080/, retry 1/5
+[2018-09-11T10:22:30+01:00] ERROR: Connection refused connecting to http://192.168.1.3:8080/, retry 2/5
+[2018-09-11T10:22:35+01:00] ERROR: Connection refused connecting to http://192.168.1.3:8080/, retry 3/5
+[2018-09-11T10:22:40+01:00] ERROR: Connection refused connecting to http://192.168.1.3:8080/, retry 4/5
+
+    [32m- http_request[check] GET to http://192.168.1.3:8080/[0m
+[0m[0m
+Running handlers:[0m
+Running handlers complete
+[0mChef Client finished, 11/12 resources updated in 20 minutes 03 seconds[0m
