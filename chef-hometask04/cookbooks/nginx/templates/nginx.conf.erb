@@ -1,0 +1,9 @@
+server {
+  listen <%= @port -%>;
+  server_name nginx;
+  root <%= @path -%>;
+  location / {
+    proxy_pass http://<%= @ip -%>:8080/sample/;
+  }
+}
+
